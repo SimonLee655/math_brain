@@ -48,6 +48,8 @@
         end = 99999;
         let answer = '';
         for (let i = begin; i < end; i++){
+            //less test => won't be even number cause of binary rule
+            if(i % 2 === 0) continue;
             if(Q01test(i)) {
                 answer = i.toString();
                 break;
