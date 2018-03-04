@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q01</title>
+</head>
+<body>
+<h3>Q01</h3>
+<div></div>
+<script>
+    'use strict'
+    window.onload = ()=>{
+        //number palindorme x10 x8 x2
+        //9 (x10) = 11 (x8) = 1001 (x2)
+        
+        const isPalindorme = (str) => {
+            let palindorme = '';
+            //solution 1. use for loop
+            // skip
+
+            //solution 2. use string build in method
+            //palindorme = str.split('').reverse().join('');
+
+            //solution 3. use recursion
+            palindorme = reverseString(str);
+
+            // console.log(`str: ${str}`);
+            // console.log(`palindorme: ${palindorme}`);
+            return palindorme === str;
+        }
+        //recusion reverse string method
+        const reverseString = (str) =>{
+            return str === '' ? str : reverseString(str.substr(1)) + str.charAt(0);
+        }
+
+        //input a value
+        //return if value is palindorme (binary, octal, binary format)
+        const Q01test = (value)=>{
+            if(typeof value === 'string')
+                value = parseInt(value);
+            const binaryValue = value.toString(2);
+            const decimalValue = value.toString();
+            const octValue = value.toString(8);
+            return isPalindorme(decimalValue) && isPalindorme(octValue) && isPalindorme(binaryValue);
+        }
+        console.log('Test Begin');
+        let begin = 10;
+        let end = Number.MAX_SAFR_INTEGER;
+        end = 99999;
+        let answer = '';
+        for (let i = begin; i < end; i++){
+            if(Q01test(i)) {
+                answer = i.toString();
+                break;
+            }
+        }
+        console.log(`answer: ${answer}`);
+    }
+</script>
+</body>
+</html>
