@@ -12,40 +12,46 @@
     </div>
     <script>
         //'use strict'
+        //1000~9999的數，在插入四元運算子後，變為原來數的回文
         window.onload = () => {
-            const test = () => {
+            //recusion reverse string method
+            const reverseString = (str) => {
+                return str === '' ? str : reverseString(str.substr(1)) + str.charAt(0);
+            }
+            let test = () => {
                 console.time('testBegin');
                 //exhaustion
                 //use javascript eval method
                 //there are three positions could be inserted operator
                 //each position has 5 kind chance
                 //total combination count is 5^3 for each number
-                for (let i = 1000; i < 10000; i++) {
-                    const originValue = i;
-                    let str = i.toString();
+                //這題用窮舉，CPU跟記憶體都吃到爆炸了
+                //必需加一些條件
+                //思考 => 結果要是要位數 => 一定不能用 +, -, /，只能用*
+                //故
+                //array of operator
+                //var operator = ['+', '-', '*', '/', ''];
+                var operator = ['*', ''];
+                //var breaker = 2000;
+                for (var i = 1000; i < 10000; i++) {
+                    var originValue = i;
+                    var str = i.toString();
+                    var reverseStr = reverseString(str);
+                    // if (i === breaker)
+                    //     debugger;
                     operator.forEach((firstOperator) => {
-                        let firstLoopStr = insertStrAt(str, firstOperator, 1);
-                        let secondIndex = firstLoopStr.length === str.length ? 2 : 3;
+                        var firstLoopStr = insertStrAt(str, firstOperator, 1);
+                        var secondIndex = firstLoopStr.length === str.length ? 2 : 3;
                         operator.forEach((secondOperator) => {
-                            let secondLoopStr = insertStrAt(firstLoopStr, secondOperator, secondIndex);
-                            let thirdIndex = secondLoopStr.length === firstLoopStr.length ? secondIndex + 1 : secondIndex + 2;
+                            var secondLoopStr = insertStrAt(firstLoopStr, secondOperator, secondIndex);
+                            var thirdIndex = secondLoopStr.length === firstLoopStr.length ? secondIndex + 1 : secondIndex + 2;
                             operator.forEach((thirdOperator) => {
-                                let thirdLoopStr = insertStrAt(secondLoopStr, thirdOperator, thirdIndex);
-                                //console.log(`final string: ${thirdLoopStr}`);
-                                // if (thirdLoopStr.indexOf('/0+') !== -1 ||
-                                //     thirdLoopStr.indexOf('/0-') !== -1 ||
-                                //     thirdLoopStr.indexOf('/0*') !== -1 ||
-                                //     thirdLoopStr.indexOf('/0/') !== -1 ||
-                                //     thirdLoopStr.indexOf('/00+') !== -1 ||
-                                //     thirdLoopStr.indexOf('/00-') !== -1 ||
-                                //     thirdLoopStr.indexOf('/00*') !== -1 ||
-                                //     thirdLoopStr.indexOf('/00/') !== -1 ||
-                                //     thirdLoopStr.indexOf('/000') !== -1
-                                // ) return;
-                                let value = eval(thirdLoopStr);
-                                if (value.toString().length !== originValue.toString().length && value === originValue) {
+                                var thirdLoopStr = insertStrAt(secondLoopStr, thirdOperator, thirdIndex);
+                                if(thirdLoopStr.length === str.length) return;
+                                var value = eval(thirdLoopStr);
+                                if (value.toString() === reverseStr) {
                                     console.log(`thirdLoopStr: ${thirdLoopStr}`);
-                                    console.log(`got one: ${value}`);
+                                    console.log(`got one: ${value}, reverseStr: ${reverseStr}, thirdLoopStr: ${thirdLoopStr}`);
                                 }
                             })
                         })
@@ -58,8 +64,7 @@
                 return str.slice(0, position) + insert + str.slice(position);
             }
 
-            //array of operator
-            const operator = ['+', '-', '*', '/', ''];
+
             let button = document.getElementsByTagName('button')[0];
             button.addEventListener('click', () => {
                 test();
