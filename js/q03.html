@@ -5,12 +5,11 @@
 </head>
 <body>
 <h3>Q03</h3>
-<div></div>
+<div><button>test</button></div>
 <script>
     'use strict'
     window.onload = ()=>{
       console.log('onload begin');
-      
       /*
         1~100張卡片，全部蓋著
         第一個人從第2號開始每隔一張翻一次 (翻2,4,6,8,...)
@@ -19,6 +18,30 @@
         ...
         執行到最後一個人後，翻過來的卡有哪些
       */
+      let test = ()=>{
+        console.time('forloop');
+        //蓋著(背面)：-1，翻開(正面) +1
+        let testArray = new Array(101).fill(-1);
+        //let testArray = Array.apply(null, {length: 10}).map(Boolean.call, Boolean);
+        //Array.apply(null, {length: 10}).map(Number.call, Number)
+        for(let i = 2; i <= 100; i++){
+          let j = 1;
+          while(i * j <= 100){
+            testArray[i * j] *= -1;
+            j++;
+          }
+        }
+        console.timeEnd('forloop');
+        testArray.shift();//把[0]濾掉
+        testArray.forEach((value, index)=>{
+          if(value === -1)//背面
+            console.log(index + 1);
+        })
+      }
+      let button = document.getElementsByTagName('button')[0];
+      button.addEventListener('click', ()=>{
+        test();
+      })
     }
 </script>
 </body>
