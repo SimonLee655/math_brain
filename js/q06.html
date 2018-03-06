@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q06</title>
+</head>
+<body>
+<h3>Q06</h3>
+<div><button>test</button></div>
+<script>
+    'use strict'
+    /**
+      考拉茲猜想
+      對自然數n進行
+      1. n 為偶數，以2除n
+      2. n 為奇數，將n乘以3再加1
+      =>不斷反覆操作，會回到1
+    */
+    /**
+      本題：
+      給一偶數
+    */
+    window.onload = ()=>{
+      console.log('onload begin');
+      let collatz = (value) => {
+        return value % 2 ? value * 3 + 1 : value / 2;
+      }
+      let test = ()=>{
+        console.time('test');
+        ///test area
+        let record = {};
+        let answer = [];
+        for(let i = 2; i < 10000; i += 2){
+          let origin = i;
+          // record[origin] = []
+          let testvalue = origin * 3 + 1;
+          while(testvalue > 1){
+          //while(origin <= testvalue){
+            // record[origin].push(testvalue);
+            testvalue = collatz(testvalue);
+            if(origin === testvalue){
+              answer.push(origin);
+              break;
+            }
+          }
+        }
+        // console.log('record');
+        // console.log(record);
+        console.log('answer');
+        console.log(answer);
+        console.timeEnd('test');
+      }
+      let button = document.getElementsByTagName('button')[0];
+      button.addEventListener('click', ()=>{
+        test();
+      })
+    }
+</script>
+</body>
+</html>
