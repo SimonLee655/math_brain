@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Q07</title>
+</head>
+
+<body>
+  <h3>Q07</h3>
+  <div>
+    <button>test</button>
+  </div>
+  <script>
+    'use strict'
+    // Date.prototype.toFormatString = (format) => {
+    //   console.log(format);
+    //   console.log(this);
+    //   var dateObj = {
+    //     'yyyy': this.getFullYear().toString(),
+    //     'YYY': (this.getFullYear() - 1911).toString(),
+    //     'MM': ((this.getMonth() + 1) / 10) >= 1 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1).toString(),
+    //     'DD': (this.getDate() / 10) >= 1 ? this.getDate().toString() : '0' + this.getDate().toString(),
+    //     'hh': (this.getHours() / 10) >= 1 ? this.getHours().toString() : '0' + this.getHours().toString(),
+    //     'mm': (this.getMinutes() / 10) >= 1 ? this.getMinutes().toString() : '0' + this.getMinutes().toString(),
+    //     'ss': (this.getSeconds() / 10) >= 1 ? this.getSeconds().toString() : '0' + this.getSeconds().toString(),
+    //   }
+    //   var re = new RegExp(Object.keys(dateObj).join('|'), 'g');
+    //   return format.replace(re, function (matched) {
+    //     return dateObj[matched];
+    //   });
+    // }
+    Date.prototype.toFormatString = function(format) {
+      // console.log(format);
+      // console.log(this);
+      var dateObj = {
+        'yyyy': this.getFullYear().toString(),
+        'YYY': (this.getFullYear() - 1911).toString(),
+        'MM': ((this.getMonth() + 1) / 10) >= 1 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1).toString(),
+        'DD': (this.getDate() / 10) >= 1 ? this.getDate().toString() : '0' + this.getDate().toString(),
+        'hh': (this.getHours() / 10) >= 1 ? this.getHours().toString() : '0' + this.getHours().toString(),
+        'mm': (this.getMinutes() / 10) >= 1 ? this.getMinutes().toString() : '0' + this.getMinutes().toString(),
+        'ss': (this.getSeconds() / 10) >= 1 ? this.getSeconds().toString() : '0' + this.getSeconds().toString(),
+      }
+      var re = new RegExp(Object.keys(dateObj).join('|'), 'g');
+      return format.replace(re, function (matched) {
+        return dateObj[matched];
+      });
+    }
+    window.onload = () => {
+      /**
+        問題：日期轉換測試
+        自19641010~20200724間
+        可將YYYYMMDD 八位數形式的年月日轉為二進位，顛倒順序再轉回十進位仍為原來的日期
+        ex.
+        19660713
+        二年位：1001010111111111110101001
+      */
+      console.log('onload begin');
+      let test = () => {
+        console.time('test');
+        ///test area
+        const format = 'yyyyMMDD';
+        //!! Date的month是zero base
+        let date = new Date(1964, 9, 10);
+        let endDate = new Date(2020, 6, 24);
+        let answer = [];
+        while(date < endDate){
+          let formatDate = date.toFormatString(format);
+          let convertString = (parseInt(parseInt(formatDate).toString(2).split('').reverse().join(''), 2)).toString(10);
+          //console.log(`originString: ${formatDate}`);
+          //console.log(`convertString: ${convertString}`);
+          if (formatDate === convertString)
+            answer.push(formatDate);
+          date.setDate(date.getDate() + 1);
+        }
+        console.log(answer);
+        console.timeEnd('test');
+      }
+      let button = document.getElementsByTagName('button')[0];
+      button.addEventListener('click', () => {
+        test();
+      })
+    }
+  </script>
+</body>
+
+</html>
