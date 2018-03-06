@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q05</title>
+</head>
+<body>
+<h3>Q05</h3>
+<div><button>test</button></div>
+<script>
+    'use strict'
+    window.onload = ()=>{
+      console.log('onload begin');
+      let test = ()=>{
+        console.time('test');
+        ///test area
+
+        
+        console.timeEnd('test');
+      }
+      let button = document.getElementsByTagName('button')[0];
+      button.addEventListener('click', ()=>{
+        test();
+      })
+    }
+</script>
+</body>
+</html>
