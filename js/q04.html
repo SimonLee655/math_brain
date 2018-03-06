@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Q00</title>
+    <title>Q04</title>
 </head>
 <body>
-<h3>Q00</h3>
+<h3>Q04</h3>
 <div><button>test</button></div>
 <script>
     'use strict'
+    /**
+      切棒子
+    */
     window.onload = ()=>{
       console.log('onload begin');
       let test = ()=>{
         console.time('test');
-        ///test area
-
-        
+        console.log('test 1. n:20, m:3');
+        testMethod(20, 3);
+        console.log('test 2. n:100, m:5');
+        testMethod(100, 5);
         console.timeEnd('test');
+      }
+      let testMethod = (n, m)=>{
+        //想不到...
+        //提示為遞迴 method(n, m, t) 長度, 人, 棒子段數
       }
       let button = document.getElementsByTagName('button')[0];
       button.addEventListener('click', ()=>{
