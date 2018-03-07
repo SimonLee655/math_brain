@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q08</title>
+</head>
+<body>
+<h3>Q08</h3>
+<div><button>test</button></div>
+<script>
+    'use strict'
+    window.onload = ()=>{
+      console.log('onload begin');
+      let test = ()=>{
+        console.time('test');
+        ///test area
+        let N = 12;
+
+        var move = (log)=>{
+          if(log.length === N) return 1;
+          let cnt = 0;
+          //右，左，上，下 (一單位)
+          [[0, 1], [0, -1], [1, 0], [-1, 0]].forEach((step)=>{
+            let next_step = [log[-1][0] + step[0], log[-1][1] + step[1]];
+            if(!log.includes(next_step))
+              cnt += move(log + [next_step]);
+          })
+          return cnt;
+        }
+        let result = move([[0, 0]]);
+        console.timeEnd('test');
+      }
+      let button = document.getElementsByTagName('button')[0];
+      button.addEventListener('click', ()=>{
+        test();
+      })
+    }
+</script>
+</body>
+</html>
