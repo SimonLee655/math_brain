@@ -1,0 +1,7 @@
+https://www.codewars.com/kata/52c4dd683bfd3b434c000292/train/javascript
+Catching Car Mileage Numbers
+regex again
+
+
+http://www.codewars.com/kata/last-digit-of-a-large-number/train/javascript
+先確定次方對應的個位數迴圈次數
